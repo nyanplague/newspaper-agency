@@ -38,10 +38,6 @@ class Newspaper(models.Model):
 class Commentary(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
-
-    class Meta:
-        verbose_name_plural = "comments"
-
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -50,3 +46,6 @@ class Commentary(models.Model):
     newspaper = models.ForeignKey(
         Newspaper, on_delete=models.CASCADE, related_name="comments"
     )
+
+    class Meta:
+        verbose_name_plural = "comments"
