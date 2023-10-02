@@ -36,7 +36,7 @@
 
       <li class="list-inline-item">
           <ul class="card-meta-tag list-inline">
-          <li class="list-inline-item"><a href="tags.html">{{ newspaper.topic }}</a></li>
+          <li class="list-inline-item"><a href="{% url "agency:topic-detail" pk=newspaper.topic.id %}">{{ newspaper.topic }}</a></li>
           </ul>
       </li>
       </ul>
