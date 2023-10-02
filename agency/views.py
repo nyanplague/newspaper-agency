@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
@@ -67,19 +69,19 @@ def newspaper_detail_view(request: HttpRequest, pk) -> HttpResponse:
         return render(request, "agency/newspaper_detail.html", context=context)
 
 
-class NewspaperCreateView(generic.CreateView):
+class NewspaperCreateView(LoginRequiredMixin, generic.CreateView):
     model = Newspaper
     form_class = NewspaperForm
     success_url = reverse_lazy("agency:newspaper-list")
 
 
-class NewspaperUpdateView(generic.UpdateView):
+class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Newspaper
     form_class = NewspaperForm
     success_url = reverse_lazy("agency:newspaper-list")
 
 
-class NewspaperDeleteView(generic.DeleteView):
+class NewspaperDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Newspaper
     success_url = reverse_lazy("agency:newspaper-list")
 
@@ -88,19 +90,19 @@ class TopicDetailView(generic.DetailView):
     model = Topic
 
 
-class TopicCreateView(generic.CreateView):
+class TopicCreateView(LoginRequiredMixin, generic.CreateView):
     model = Topic
     form_class = TopicForm
     success_url = reverse_lazy("agency:index")
 
 
-class TopicUpdateView(generic.UpdateView):
+class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Topic
     form_class = TopicForm
     success_url = reverse_lazy("agency:index")
 
 
-class TopicDeleteView(generic.DeleteView):
+class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Topic
 
 
@@ -127,8 +129,23 @@ class RedactorListView(generic.ListView):
         return self.queryset
 
 
-class RedactorDetailView(generic.DetailView):
-    model = Redactor
+def redactor_detail_view(request: HttpRequest, pk: int) -> render:
+    redactor = Redactor.objects.filter(id=pk).first()
+
+    if redactor:
+        newspapers_list = redactor.newspapers.all()
+        paginator = Paginator(newspapers_list, 3)
+
+        page_number = request.GET.get("page", 1)
+        page_obj = paginator.get_page(page_number)
+        context = {
+            "redactor": redactor,
+            "newspapers_page": page_obj,
+        }
+
+        return render(request, "agency/redactor_detail.html", context=context)
+    else:
+        return render(request, "agency/redactor_list.html")
 
 
 class RedactorCreateView(generic.CreateView):
@@ -145,4 +162,5 @@ class RedactorUpdateView(generic.UpdateView):
 
 class RedactorDeleteView(generic.DeleteView):
     model = Redactor
+    success_url = reverse_lazy("agency:redactor-list")
 
