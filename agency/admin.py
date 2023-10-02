@@ -9,7 +9,7 @@ admin.site.unregister(Group)
 
 @admin.register(Redactor)
 class RedactorAdmin(UserAdmin):
-    list_display = UserAdmin.list_display + ("years_of_experience", )
+    list_display = UserAdmin.list_display + ("years_of_experience",)
     fieldsets = UserAdmin.fieldsets + (
         (("Additional info", {"fields": ("years_of_experience",)}),)
     )
@@ -37,4 +37,7 @@ class TopicAdmin(admin.ModelAdmin):
 @admin.register(Newspaper)
 class NewspaperAdmin(admin.ModelAdmin):
     search_fields = ("title",)
-    list_filter = ("publishers", "topic", )
+    list_filter = (
+        "publishers",
+        "topic",
+    )

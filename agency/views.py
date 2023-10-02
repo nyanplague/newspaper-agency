@@ -5,19 +5,31 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
-from agency.forms import NewspaperForm, NewspaperSearchForm, TopicForm, RedactorCreationForm, RedactorSearchForm, \
-    CommentForm, RedactorYearsUpdateForm
+from agency.forms import (
+    NewspaperForm,
+    NewspaperSearchForm,
+    TopicForm,
+    RedactorCreationForm,
+    RedactorSearchForm,
+    CommentForm,
+    RedactorYearsUpdateForm,
+)
 from agency.models import Newspaper, Topic, Redactor, Commentary
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    newspapers_list = Newspaper.objects.select_related("topic").order_by("publish_date")
+    newspapers_list = Newspaper.objects.select_related("topic").order_by(
+        "publish_date"
+    )
     topics_list = Topic.objects.all()
 
     return render(
         request,
         "agency/index.html",
-        context={"newspapers_list": newspapers_list, "topics_list": topics_list},
+        context={
+            "newspapers_list": newspapers_list,
+            "topics_list": topics_list,
+        },
     )
 
 
@@ -30,9 +42,7 @@ class NewspaperListView(generic.ListView):
         context = super(NewspaperListView, self).get_context_data(**kwargs)
         title = self.request.GET.get("title", "")
         context["title"] = title
-        context["search_form"] = NewspaperSearchForm(
-            initial={"title": title}
-        )
+        context["search_form"] = NewspaperSearchForm(initial={"title": title})
         return context
 
     def get_queryset(self):
@@ -163,4 +173,3 @@ class RedactorUpdateView(generic.UpdateView):
 class RedactorDeleteView(generic.DeleteView):
     model = Redactor
     success_url = reverse_lazy("agency:redactor-list")
-
