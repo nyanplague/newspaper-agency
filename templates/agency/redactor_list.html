@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <section class="section-sm">
+  <div class="container">
+  <h2 class="h5 section-title mt-5"> Our Redactors <a href="{% url 'agency:redactor-create' %}" class="btn btn-primary link-to-page">
+        Create
+      </a></h2>
+
+  <form method="get" action="" class="widget-search">
+    {{ search_form.as_p }}
+    <input type="submit" value="🔍">
+  </form>
+    <div class="row">
+        {% for redactor in redactor_list %}
+      <div class="col-sm-4">
+        <div class="author-card text-center">
+          <img class="author-image" src="https://onlineprofilepros.com/wp-content/uploads/2017/12/profile-photo.jpeg">
+          <h3 class="mb-2"><a href="{% url "agency:redactor-detail" pk=redactor.id %}" class="post-title">{{ redactor.first_name}} {{ redactor.last_name }}</a></h3>
+          <p class="mb-3">{{ redactor.username }}</p>
+          <a class="post-count" href=""><i class="ti-pencil-alt mr-2"></i><span class="text-primary">{{ redactor.newspapers.count }}</span> Post{{ redactor.newspapers.count|pluralize}} by this author</a>
+        </div>
+      </div>
+        {% endfor %}
+    </div>
+  </div>
+  </section>
+
+{% endblock %}

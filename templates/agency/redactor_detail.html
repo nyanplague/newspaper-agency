@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="section-sm mt-5">
+    <div class="container">
+      <div class="row align-items-center justify-content-center">
+        <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
+          <div class="image-wrapper">
+            <img class="img-fluid w-100" src="https://onlineprofilepros.com/wp-content/uploads/2017/12/profile-photo.jpeg">
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-6">
+          <div class="content pl-lg-3 pl-0">
+            <h2>
+              Hello I’m {{ redactor.first_name }} {{ redactor.last_name }}!</h2>
+            {{ redactor.years_of_experience}} year{{ redactor.years_of_experience|pluralize }} of experience
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit massa vitae felis augue. In venenatis scelerisque accumsan egestas mattis. Massa feugiat in sem pellentesque.</p>
+                <a href="{% url 'agency:redactor-update' pk=redactor.id %}"
+                   class="btn btn-primary link-to-page" style="color: white">
+                    Update
+                </a>
+                <a href="{% url 'agency:redactor-delete' pk=redactor.id %}"
+                 class="btn btn-primary link-to-page" style="background-color: red; border-color: red; color: white">
+                  Delete
+                </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="section-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h2 class="mb-5">My newspapers</h2>
+      </div>
+      {% for newspaper in newspapers_page %}
+      <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card border-0 rounded-0 text-center shadow-none overflow-hidden">
+          <a href="#">
+             <div class="book-cover">
+              <img src="https://img.freepik.com/free-vector/online-article-concept-illustration_114360-5193.jpg" alt="" class="card-img-top rounded-0">
+             </div>
+             <div class="card-body">
+                <h4 class="text-uppercase mb-3 "> <a class="post-title" href="{% url "agency:newspaper-detail" pk=newspaper.id %}">{{ newspaper.title }}</a></h4>
+                <li class="list-inline-item">
+                    <ul class="card-meta-tag list-inline">
+                    <li class="list-inline-item"><a href="{% url "agency:topic-detail" pk=newspaper.topic.id %}">{{ newspaper.topic }}</a></li>
+                    </ul>
+                </li>
+             </div>
+           </a>
+        </div>
+     </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<ul class="pagination justify-content-center mb-5">
+{% if newspapers_page.has_previous %}
+  <li class="page-item"><a class="page-link" href="?page={{ newspapers_page.previous_page_number }}"> Prev </a> </li>
+{% endif %}
+<li class="page-item page-item active" ><span class="page-link">{{ newspapers_page.number }}</span></li>
+{% if newspapers_page.has_next %}
+  <li class="page-item"><a class="page-link" href="?page={{ newspapers_page.next_page_number }}"> Next </a> </li>
+{% endif %}
+</ul>
+{% endblock %}

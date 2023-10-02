@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+  <br>
+  <section class="section-sm">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 mb-lg-0">
+<h2 class="h5 section-title">Recent Newspapers <a href="{% url 'agency:newspaper-create' %}" class="btn btn-primary link-to-page">
+        Create
+      </a></h2>
+   <form method="get" action="" class="widget-search">
+    {{ search_form.as_p }}
+    <input type="submit" value="🔍">
+  </form>
+  {% for newspaper in newspaper_list %}
+  <article class="card mb-4">
+
+  <div class="card-body">
+      <h3 class="mb-3"><a class="post-title" href="{% url "agency:newspaper-detail" pk=newspaper.id %} ">{{ newspaper.title }}</a></h3>
+      <ul class="card-meta list-inline">
+
+          <li class="list-inline-item">
+              <a href="" class="card-meta-author">
+                {% for publisher in newspaper.publishers.all %}
+                   <span> <a style="color: #777" href="{% url "agency:redactor-detail" pk=publisher.id %}"> {{ publisher.first_name }} |
+                   </a></span>
+                  {% endfor %}
+              </a>
+          </li>
+          <li class="list-inline-item">
+              <i class="ti-timer"></i>3 Min To Read
+          </li>
+          <li class="list-inline-item">
+              <i class="ti-calendar"></i>{{ newspaper.publish_date}}
+          </li>
+
+      <li class="list-inline-item">
+          <ul class="card-meta-tag list-inline">
+          <li class="list-inline-item"><a href="tags.html">{{ newspaper.topic }}</a></li>
+          </ul>
+      </li>
+      </ul>
+      <p></p>
+      <a href="{% url "agency:newspaper-detail" pk=newspaper.id %}" class="btn btn-outline-primary">Read More</a>
+  </div>
+  </article>
+  {% endfor %}
+</div>
+    </div>
+  </div>
+</section>
+{% endblock %}
