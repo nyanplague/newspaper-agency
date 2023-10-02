@@ -28,5 +28,5 @@ python manage.py runserver
 * Commenting newspapers
 
 ## DB structure
-![Db structure](db_sctructure.png)
+![Db structure](db_structure.png)
 
