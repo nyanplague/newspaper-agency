@@ -54,3 +54,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Commentary
         fields = ("content",)
+
+
+class RedactorYearsUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Redactor
+        fields = ["years_of_experience"]

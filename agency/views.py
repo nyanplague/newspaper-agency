@@ -6,7 +6,7 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic
 
 from agency.forms import NewspaperForm, NewspaperSearchForm, TopicForm, RedactorCreationForm, RedactorSearchForm, \
-    CommentForm
+    CommentForm, RedactorYearsUpdateForm
 from agency.models import Newspaper, Topic, Redactor, Commentary
 
 
@@ -156,7 +156,7 @@ class RedactorCreateView(generic.CreateView):
 
 class RedactorUpdateView(generic.UpdateView):
     model = Redactor
-    form_class = RedactorCreationForm
+    form_class = RedactorYearsUpdateForm
     success_url = reverse_lazy("agency:redactor-list")
 
 
