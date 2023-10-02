@@ -106,14 +106,9 @@ class TopicCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("agency:index")
 
 
-class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
-    model = Topic
-    form_class = TopicForm
-    success_url = reverse_lazy("agency:index")
-
-
 class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Topic
+    success_url = reverse_lazy("agency:index")
 
 
 class RedactorListView(generic.ListView):
