@@ -4,7 +4,7 @@ Django project for managing newspapers and redactors.
 
 ### Check it out!
 
-[Waiting for deploy]()
+[Library project deployed to Render](https://newspaper-agency-9ve2.onrender.com/)
 
 ## Installation
 
