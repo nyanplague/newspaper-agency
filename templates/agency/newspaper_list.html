@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
 {% block content %}
   <br>
   <section class="section-sm">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8 mb-lg-0">
-<h2 class="h5 section-title">Recent Newspapers <a href="{% url 'agency:newspaper-create' %}" class="btn btn-primary link-to-page">
+<h2 class="h5 section-title">Recent Newspapers {% if user.is_authenticated %}<a href="{% url 'agency:newspaper-create' %}" class="btn btn-primary link-to-page">
         Create
-      </a></h2>
+      </a> {% endif %}</h2>
    <form method="get" action="" class="widget-search">
     {{ search_form.as_p }}
     <input type="submit" value="🔍">
@@ -40,7 +41,7 @@
           </ul>
       </li>
       </ul>
-      <p></p>
+      <p>{{ newspaper.content|first_two_sentences }}</p>
       <a href="{% url "agency:newspaper-detail" pk=newspaper.id %}" class="btn btn-outline-primary">Read More</a>
   </div>
   </article>

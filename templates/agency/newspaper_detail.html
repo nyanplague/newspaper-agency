@@ -9,6 +9,7 @@
       <div class=" col-lg-9   mb-5 mb-lg-0">
         <article>
           <h1 class="h2"> {{ newspaper.title }}</h1>
+            {% if user.is_authenticated %}
             <a href="{% url 'agency:newspaper-delete' pk=newspaper.id %}"
                class="btn btn-primary link-to-page" style="background-color: red; border-color: red">
                 Delete
@@ -17,6 +18,7 @@
                class="btn btn-primary link-to-page">
                 Update
             </a>
+            {% endif %}
 
         <div class="post-slider slider-sm">
             <img src="https://img.freepik.com/free-vector/online-article-concept-illustration_114360-5193.jpg" class="card-img-top" alt="post-thumb">

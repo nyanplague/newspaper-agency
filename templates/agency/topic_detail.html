@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load custom_filters %}
 {% block content %}
    <br>
   <section class="section-sm">
@@ -6,6 +7,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-8  mb-5 mb-lg-0">
   <h2 class="h5 section-title">{{ topic.name}}
+    {% if user.is_authenticated %}
       <a href="{% url 'agency:topic-create' %}" class="btn btn-primary link-to-page">
           Create
         </a>
@@ -13,6 +15,7 @@
              class="btn btn-primary link-to-page" style="background-color: red; border-color: red; color: white">
               Delete
         </a>
+    {% endif %}
   </h2>
 
   {% for newspaper in topic.newspapers.all %}
@@ -33,11 +36,11 @@
           </li>
       <li class="list-inline-item">
           <ul class="card-meta-tag list-inline">
-          <li class="list-inline-item"><a href="tags.html">{{ newspaper.topic }}</a></li>
+          <li class="list-inline-item"><a href="">{{ newspaper.topic }}</a></li>
           </ul>
       </li>
       </ul>
-      <p></p>
+      <p>{{ newspaper.content|first_two_sentences }}</p>
       <a href="{% url "agency:newspaper-detail" pk=newspaper.id %}" class="btn btn-outline-primary">Read More</a>
   </div>
   </article>
