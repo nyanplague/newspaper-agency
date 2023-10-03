@@ -18,9 +18,7 @@ from agency.models import Newspaper, Topic, Redactor, Commentary
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    newspapers_list = Newspaper.objects.select_related("topic").order_by(
-        "publish_date"
-    )
+    newspapers_list = Newspaper.objects.select_related("topic").order_by("publish_date")
     topics_list = Topic.objects.all()
 
     return render(
@@ -48,9 +46,7 @@ class NewspaperListView(generic.ListView):
     def get_queryset(self):
         form = NewspaperSearchForm(self.request.GET)
         if form.is_valid():
-            return self.queryset.filter(
-                title__icontains=form.cleaned_data["title"]
-            )
+            return self.queryset.filter(title__icontains=form.cleaned_data["title"])
         return self.queryset
 
 
@@ -120,9 +116,7 @@ class RedactorListView(generic.ListView):
         context = super(RedactorListView, self).get_context_data(**kwargs)
         username = self.request.GET.get("username", "")
         context["username"] = username
-        context["search_form"] = RedactorSearchForm(
-            initial={"username": username}
-        )
+        context["search_form"] = RedactorSearchForm(initial={"username": username})
         return context
 
     def get_queryset(self):
@@ -153,18 +147,18 @@ def redactor_detail_view(request: HttpRequest, pk: int) -> render:
         return render(request, "agency/redactor_list.html")
 
 
-class RedactorCreateView(generic.CreateView):
+class RedactorCreateView(LoginRequiredMixin, generic.CreateView):
     model = Redactor
     form_class = RedactorCreationForm
     success_url = reverse_lazy("agency:redactor-list")
 
 
-class RedactorUpdateView(generic.UpdateView):
+class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
     form_class = RedactorYearsUpdateForm
     success_url = reverse_lazy("agency:redactor-list")
 
 
-class RedactorDeleteView(generic.DeleteView):
+class RedactorDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Redactor
     success_url = reverse_lazy("agency:redactor-list")
