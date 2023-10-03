@@ -2,10 +2,9 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 
-from agency.models import Redactor, Topic, Newspaper
+from agency.models import Redactor, Topic, Newspaper, Commentary
 
 admin.site.unregister(Group)
-
 
 @admin.register(Redactor)
 class RedactorAdmin(UserAdmin):
@@ -41,3 +40,10 @@ class NewspaperAdmin(admin.ModelAdmin):
         "publishers",
         "topic",
     )
+
+
+@admin.register(Commentary)
+class CommentaryAdmin(admin.ModelAdmin):
+    list_filter = (
+        "newspaper", )
+    list_display = ("newspaper", "content",)
