@@ -11,9 +11,7 @@ class AdminSiteTests(TestCase):
         )
         self.client.force_login(self.admin_user)
         self.redactor = get_user_model().objects.create_user(
-            username="test_username",
-            password="test_password",
-            years_of_experience="5"
+            username="test_username", password="test_password", years_of_experience="5"
         )
 
     def test_redactor_years_of_experience_listed(self):

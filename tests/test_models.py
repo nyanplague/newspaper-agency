@@ -1,7 +1,6 @@
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from agency.models import Newspaper, Redactor, Commentary, Topic
+from agency.models import Newspaper, Redactor, Topic
 
 
 class ModelTests(TestCase):
@@ -13,7 +12,7 @@ class ModelTests(TestCase):
         newspaper = Newspaper.objects.create(
             title="Test_newspaper",
             content="Test_content",
-            publish_date="Test_date",
+            publish_date="2023-04-15 14:37:22",
             topic_id=1,
         )
         newspaper.publishers.set([publisher])
@@ -30,4 +29,3 @@ class ModelTests(TestCase):
             str(redactor),
             f"{redactor.username} ({redactor.first_name} {redactor.last_name})",
         )
-
