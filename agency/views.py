@@ -34,7 +34,7 @@ def index(request: HttpRequest) -> HttpResponse:
 class NewspaperListView(generic.ListView):
     model = Newspaper
     paginate_by = 5
-    queryset = Newspaper.objects.all()
+    queryset = Newspaper.objects.all().order_by("publish_date")
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(NewspaperListView, self).get_context_data(**kwargs)

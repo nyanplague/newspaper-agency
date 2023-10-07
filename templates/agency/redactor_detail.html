@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
   <section class="section-sm mt-5">
     <div class="container">
       <div class="row align-items-center justify-content-center">
         <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
           <div class="image-wrapper">
-            <img class="img-fluid w-100" src="https://onlineprofilepros.com/wp-content/uploads/2017/12/profile-photo.jpeg">
+            <img class="img-fluid w-100" src="{% static 'images/default-profile-photo.jpeg' %}">
           </div>
         </div>
         <div class="col-lg-5 col-md-6">
@@ -41,7 +42,7 @@
         <div class="card border-0 rounded-0 text-center shadow-none overflow-hidden">
           <a href="#">
              <div class="book-cover">
-              <img src="https://img.freepik.com/free-vector/online-article-concept-illustration_114360-5193.jpg" alt="" class="card-img-top rounded-0">
+              <img src="{% static 'images/default-article-img.png' %}" alt="" class="card-img-top rounded-0">
              </div>
              <div class="card-body">
                 <h4 class="text-uppercase mb-3 "> <a class="post-title" href="{% url "agency:newspaper-detail" pk=newspaper.id %}">{{ newspaper.title }}</a></h4>

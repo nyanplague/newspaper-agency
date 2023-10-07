@@ -49,3 +49,6 @@ class Commentary(models.Model):
 
     class Meta:
         verbose_name_plural = "comments"
+
+    def __str__(self):
+        return f"{self.content}"

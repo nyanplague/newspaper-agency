@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load crispy_forms_filters %}
 {% block content %}
 
@@ -21,7 +22,7 @@
             {% endif %}
 
         <div class="post-slider slider-sm">
-            <img src="https://img.freepik.com/free-vector/online-article-concept-illustration_114360-5193.jpg" class="card-img-top" alt="post-thumb">
+            <img src="{% static 'images/default-article-img.png' %}" class="card-img-top" alt="post-img">
           </div>
           <ul class="card-meta my-3 list-inline">
             <li class="list-inline-item">
